@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+{% include 'registration/head-login.html' %}
+{% block contenido %}
+
+<body>
+    <a href="{% url 'index' %}" class="logo">
+        <img src="{% static '/assets/img/logo.png' %}" class="img-fluid border"
+            class="logo">
+    </a>
+    <div class="formulario">
+        <h1>Inicio de Sesión</h1>
+        <form method="post" id="loginForm">
+            {% csrf_token %}
+            <div class="form-floating mb-3">
+                <input type="text" name="username" class="form-control" id="floatingUsername" placeholder="Nombre de Usuario">
+                <label for="floatingUsername">Nombre de Usuario</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Contraseña">
+                <label for="floatingPassword">Contraseña</label>
+            </div>
+            <a class="recordar" href="{% url 'apps.usuario:password_reset' %}" id="olvido">¿Olvidó su contraseña?</a>
+            <input type="submit" value="Iniciar Sesión" id="iniciar">
+            <div class="registrarse">
+                <a href="{% url 'apps.usuario:registrar' %}?next={{ request.GET.next }}">¿Nuevo en A.I.R.E.? Regístrate</a>
+            </div>
+        </form>
+    </div>
+     
+    {% include 'js-py/login-js.html' %}
+</body>
+{% endblock contenido %}
+
+</html>

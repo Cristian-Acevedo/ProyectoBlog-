@@ -1,0 +1,80 @@
+<!--Barra de navegación-->
+{% load static %}
+<nav class="navbar navbar-expand-lg custom-navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'assets/img/logo.png' %}" alt="" width="100px">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Inicio</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'apps.articulo:articulos' %}">Articulos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'apps.contacto:contacto' %}">Contacto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'apps.articulo:acerca_de' %}">Acerca de</a>
+                </li>
+
+                
+
+            </ul>
+            <button class="switch" id="switch">
+                <span><i class="fa fa-sun" style="font-size:24px; color: floralwhite;"></i></span>
+                <span><i class="fa fa-moon" style="font-size:24px; color: floralwhite;"></i></span>
+            </button>
+            {% if user.is_authenticated %}
+            {% for group in user.groups.all %}
+            {% if group.name == 'Miembro'%}
+            <form id="colaborador-form" method="post" action="{% url 'apps.usuario:ser_colaborador' %}">
+                {% csrf_token %}
+                <input type="submit" style="display: none;">
+            </form>
+            <a href="" class="btn btn-warning custom-left" id="colaborador" data-bs-toggle="modal">Ser Colaborador</a>
+
+            {% endif %}
+            {% endfor %}
+            
+            {% if user.imagen %}
+            <h3 id="usuario">Bienvenid@, {{ user.first_name|default:user.username }}!</h3>
+            <div class="dropdown">
+                <a class="dropdown-toggle" id="dropdownMenuLink" role="button" data-bs-toggle="dropdown" data-bs-popper="none"
+                    aria-haspopup="false" aria-expanded="false">
+                    <img src="{{ user.imagen.url }}" alt="" width="80px" height="80px" id="img-3" class="user-image">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink"
+                    style="color: black; background-color: white;">
+                    <li><a class="dropdown-item" href="{% url 'apps.usuario:modificar_usuario' %}" style="color: black;">Modificar
+                            usuario</a></li>
+                    <li><a class="dropdown-item" href="{% url 'apps.usuario:password_reset' %}" style="color: black;">Restablecer contraseña</a></li>
+                    <li><a class="dropdown-item" href="#" id="logout-button" style="color: black;">Cerrar Sesión</a></li>
+                </ul>
+            </div>
+            {% endif %}
+            {% endif %}
+            <form class="d-flex" id="logoutForm">
+
+                {% if user.is_authenticated %}
+                {% else %}
+                <a href="{% url 'apps.usuario:login' %}?next={{ request.path }}" class="btn btn-success">Iniciar Sesion</a>
+                {% endif %}
+            </form>
+
+            {% include 'js-py/nav-js.html' %}
+
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.min.js"></script>
+
+    <link rel="stylesheet" href="sweetalert2.min.css">
+</nav>

@@ -1,0 +1,143 @@
+.comentarios-seccion {
+    background-color: rgb(39, 181, 91);
+    color: white;
+    margin-top: 20px;
+}
+
+#tituloComentario {
+    color: rgb(46, 110, 33);
+    background-color: #002c11;
+    margin-left: 100px;
+    margin-right: 100px;
+    border: 10px solid #002c11;
+    padding: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Arial', sans-serif;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+}
+
+.form-box {
+    background-color: #04471C;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    padding: 20px;
+    display: inline-block;
+    width: 100%;
+}
+
+.form__textarea {
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    resize: none;
+    height: auto;
+    width: 100%;
+    max-width: 590px;
+}
+
+.card-body {
+    flex: 1;
+    margin-left: 10px;
+}
+
+.botones {
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+}
+
+.botones a {
+    white-space: nowrap;
+}
+
+.btn:hover {
+    transform: scale(1.07);
+}
+
+.form__title {
+    margin-bottom: 10px;
+    color: white;
+    text-align: left;
+}
+
+.contenedor-comentarios {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.mi-product-wap {
+    padding: 10px;
+    font-size: 23px;
+    margin-bottom: 0px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #002c11;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    font-weight: bold;
+    color: #777777;
+}
+
+.info-user-wap {
+    color: white;
+    background-color: #04471C;
+    border-radius: 15px;
+    border: 1px solid #04471C;
+    padding: 10px;
+    display: inline-block;
+    font-size: 15px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-user-wap img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.comentario-box {
+    margin-bottom: 100px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.comment-form {
+    margin-bottom: 100px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.custom-textarea {
+    margin-top: 3rem;
+    background-color: #002c11;
+    color: white;
+    font-size: 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    resize: none;
+    height: auto;
+    width: 100%;
+    max-width: 590px;
+}
+
+.edit-com {
+    margin-top: -1rem;
+}

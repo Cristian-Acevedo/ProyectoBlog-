@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block titulo %} Modificar usuario {% endblock %}
+
+{% block contenido %}
+<section class="sec-usu">
+    <div class="container pb-5">
+        <div class="row">
+            <div class="col-lg-5 mt-5">
+                <div class="card mb-3">
+                    <img class="card-img img-fluid" src="{{ user.imagen.url }}" alt="Imagen de usuario" id="user-image">
+                </div>
+                <div class="row">
+
+                </div>
+            </div>
+
+            <div class="col-lg-7 mt-5">
+
+                <div class="card">
+                    <div class="card-header">
+                        Modificar información de usuario
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Datos del usuario</h4>
+                        <form method="post" enctype="multipart/form-data" id="update-form">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+
+                            <div class="d-flex justify-content-center">
+                                <input type="submit" class="btn btn-success" value="Confirmar" onclick="">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% include 'js-py/modificar_usu.html' %}
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block contenido %}
+<section class="contactos">
+<div class="container">
+    <h1 id="contacto">Ponte en contacto con nosotros:</h1>
+    <h1>{{ mensaje }}</h1>
+    <form action="" method="POST" class="cont-form">
+        {% csrf_token %}
+        <div class="row">
+
+            {{ form }}
+
+        </div>
+        <button type="submit" class="btn btn-success" id="btncontacto">Enviar</button>
+    </form>
+</div>
+</section>
+{% endblock %}

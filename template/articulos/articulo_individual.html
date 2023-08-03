@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<title> {% block title %} Articulo: {{ articulos.titulo | capfirst }} {% endblock title %} </title>
+
+{% block contenido %}
+<section class="sec-articulos">
+    <div class="container pb-5" id="articuloss">
+        <div class="row">
+            <div class="col-lg-5 mt-5">
+                <div class="card mb-3">
+                    <img class="card-img img-fluid" src="{{ articulos.imagen.url }}" alt="Card image cap"
+                        id="product-detail">
+                </div>
+            </div>
+            <div class="col-lg-7 mt-5">
+                <div class="card">
+                    <div class="card-body-articulo">
+                        <h1 class="art-titulo">{{ articulos.titulo | capfirst }}</h1>
+                        <h5 id="public">Publicado: {{ articulos.fecha_publicacion | slice:":19" }}</h5>
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <h6>Resumen: </h6>
+                            </li>
+                            <li class="list-inline-item">
+                                <p class=""><strong>{{ articulos.resumen | capfirst }}</strong></p>
+                            </li>
+                        </ul>
+                        <h6>Contenido:</h6>
+                        <div class="contenido-truncado" style="max-height: 300px; overflow-y: auto;">
+                            <p>{{ articulos.contenido | capfirst }}</p>
+                        </div>
+                        <h3>Calificación promedio: <strong>{{ articulos.calificacion_promedio }}</strong></h3>
+                        {% if user.is_authenticated %}
+                        <div class="justify-content-center">
+                            <form action="{% url 'apps.articulo:calificar_articulo' articulos.id %}" method="post"
+                                id="calif">
+                                {% csrf_token %}
+                                <input type="hidden" name="articulo_id" value="{{ articulos.id }}">
+                                <div class="col-4 clasificacion">
+                                    <input id="radio1" type="radio" name="valor" value="5">
+                                    <label for="radio1" class="estrellas">★</label>
+                                    <input id="radio2" type="radio" name="valor" value="4">
+                                    <label for="radio2" class="estrellas">★</label>
+                                    <input id="radio3" type="radio" name="valor" value="3">
+                                    <label for="radio3" class="estrellas">★</label>
+                                    <input id="radio4" type="radio" name="valor" value="2">
+                                    <label for="radio4" class="estrellas">★</label>
+                                    <input id="radio5" type="radio" name="valor" value="1">
+                                    <label for="radio5" class="estrellas">★</label>
+                                </div>
+                            </form>
+                            {% if articulos.calificacion.all %}
+                            {% for calificacion in articulos.calificacion.all %}
+                            {% if calificacion.usuario.username == user.username %}
+                            {% with calificacion.valor as user_rating %}
+                            {% ifchanged %}
+                            {% include 'js-py/articulo_ind.html' %}
+                            {% endifchanged %}
+                            {% endwith %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                            {% endif %}
+
+                        </div>
+                        <button id="ver-puntuaciones" class="btn btn-success">Ver Puntuaciones</button>
+                        <div id="puntuaciones" style="display: none;">
+                            {% if articulos.calificacion.all %}
+                            <ul style="display: inline;">
+                                {% for calificacion in articulos.calificacion.all %}
+                                <li style="display: inline;" class="califi"> {{ calificacion.usuario.username }}:
+                                    {{calificacion.valor }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% else %}
+                            <p>No hay calificaciones para este artículo.</p>
+                            {% endif %}
+                        </div>
+                        {% include 'js-py/articulo_ind-js.html' %}
+                        <div class="row pb-3">
+                            {% if user.is_authenticated %}
+                            <div class="col d-grid">
+                                <a href="{% url 'apps.articulo:descargar_pdf' articulos.id %}" class="btn btn-primary"
+                                    id="pdf">Descargar PDF</a>
+                            </div>
+                            {% endif %}
+                            {% for group in user.groups.all %}
+                            {% if group.name == 'Colaborador'%}
+                            <div class="col d-grid">
+                                <a class="btn btn-success btn-lg"
+                                    href="{% url 'apps.articulo:modificar' articulos.id %}?next={{ request.path }}">Modificar</a>
+                            </div>
+                            <div class="col d-grid">
+                                <a class="btn btn-danger btn-lg"
+                                    href="{% url 'apps.articulo:eliminar_articulo' articulos.id %}?next={{ request.path }}">Eliminar</a>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% include 'articulos/seccion_comentarios.html' %}
+{% include 'js-py/articulo_ind.html' %}
+</section>
+
+{% endblock contenido %}
